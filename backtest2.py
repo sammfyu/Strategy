@@ -915,6 +915,8 @@ class backtest(object):
                     self.close_all(bp1[i], ap1[i], i)
                 else:
                     self.do_nothing()
+                
+                
                 #print(self.index[i], sigl[i], sigs[i], self.long_avg_price, self.short_avg_price)          
             else:
                 self.do_nothing()

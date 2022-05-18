@@ -124,8 +124,8 @@ def GetFees(instrument: str, oc='open'):
     return fees[instrument][oc]
 
 
-def GetTradeDates(instrument):
-    return sorted(list(set([x.split('/')[-1][:-4] for x in glob.glob('./data/{}/*.csv'.format(instrument))])))
+def GetTradeDates(data_path, instrument):
+    return sorted(list(set([x.split('/')[-1][:-4] for x in glob.glob(data_path + '{}/*.csv'.format(instrument))])))
 
 
 def GetSecond(index):
