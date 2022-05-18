@@ -36,12 +36,12 @@ def GetVisual(df, freq):
         #hoverinfo='none',
         opacity=0.7,
     ), row=2, col=1)
-    fig.add_trace(go.Scatter(
-        x=df.index, y=df['BBL_14_2.0'], opacity=0.3, line=dict(color='blue', width=2), name='BBL_14'), row=2, col=1)
-    fig.add_trace(go.Scatter(
-        x=df.index, y=df['BBM_14_2.0'], opacity=0.3, line=dict(color='grey', width=2), name='BBM_14'), row=2, col=1)
-    fig.add_trace(go.Scatter(
-        x=df.index, y=df['BBU_14_2.0'], opacity=0.3, line=dict(color='red', width=2), name='BBU_14'), row=2, col=1)
+    cols = [x for x in df.columns if 'BB' in x]
+    colors = ['blue', 'grey', 'red']
+    for col, color in zip(cols, colors):
+        fig.add_trace(go.Scatter(
+            x=df.index, y=df[col], opacity=0.3, line=dict(color=color, width=2), name=col), row=2, col=1)
+
     open_long = np.where((df['direction'] == '多') & (df['action'] == '开'), df['close'], np.nan)
     fig.add_trace(go.Scatter(
         x=df.index, y=open_long, opacity=1, mode='markers', marker=dict(
@@ -83,10 +83,13 @@ def GetVisual(df, freq):
 # fig.update_xaxes(rangeslider_visible=False, row=3, col=1)
     
     # RSI Plot
-    fig.add_trace(go.Scatter(
-        x=df.index, y=df['RSI_6'], opacity=0.5, line=dict(color='#2f2ff5', width=2), name='RSI_6'), row=3, col=1)
-    fig.add_trace(go.Scatter(
-        x=df.index, y=df['RSI_14'], opacity=0.9, line=dict(color='#2fb3f5', width=2), name='RSI_14'), row=3, col=1)
+    cols = [x for x in df.columns if 'RSI' in x]
+    colors = ['#2f2ff5', '#2fb3f5']
+    for col, color in zip(cols, colors):
+        fig.add_trace(go.Scatter(
+            x=df.index, y=df[col], opacity=0.5, line=dict(color=color, width=2), name=col), row=3, col=1)
+
+
     fig.add_hline(y=80, row=3, col=1)
     fig.add_hline(y=20, row=3, col=1)
     fig.update_yaxes(title_text="RSI", row=3, col=1)
